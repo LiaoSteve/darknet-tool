@@ -6,7 +6,7 @@ from os.path import join
 
 sets=[('2007', 'train'), ('2007', 'val'), ('2007', 'test'), ('2007', 'trainval')]
 
-classes = ["girl1", "girl2"]
+classes = ["trash","cap","plastic_bag"]
 
 
 def convert(size, box):
@@ -31,10 +31,9 @@ def convert_annotation(year, image_id):
     w = int(size.find('width').text)
     h = int(size.find('height').text)
 
-    for obj in root.iter('object'):
-        difficult = obj.find('difficult').text
-        cls = obj.find('name').text
-        if cls not in classes or int(difficult) == 1:
+    for obj in root.iter('object'):        
+        cls = obj.find('attribute').text
+        if cls not in classes:
             continue
         cls_id = classes.index(cls)
         xmlbox = obj.find('bndbox')
