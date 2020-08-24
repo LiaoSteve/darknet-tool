@@ -3,11 +3,22 @@ import random
  
 trainval_percent = 0.1
 train_percent = 0.9
+
 xmlfilepath = 'Annotations'
 txtsavepath = 'ImageSets/Main'
+jpegfilepath = 'JPEGImages'
+
 total_xml = os.listdir(xmlfilepath)
- 
+total_images = os.listdir(jpegfilepath)
+
 num = len(total_xml)
+image_num = len(total_images)
+
+print(f'- [x] total_xml: {num}')
+print(f'- [x] total_images: {image_num}')
+
+if num != image_num:    
+    raise RuntimeError("- [x] number of xml and images are not the same.")
 list = range(num)
 tv = int(num * trainval_percent)
 tr = int(tv * train_percent)
@@ -24,7 +35,7 @@ ftrain = open('ImageSets/Main/train.txt', 'w')
 fval = open('ImageSets/Main/val.txt', 'w')
  
 for i in list:
-    name = total_xml[i][:-4] + '\n'
+    name = total_images[i] + '\n'
     if i in trainval:
         ftrainval.write(name)
         if i in train:
@@ -38,3 +49,5 @@ ftrainval.close()
 ftrain.close()
 fval.close()
 ftest.close()
+print(f'- [Done] Create dataset(txtfile) to {txtsavepath}')
+print(f'- [x] Please run voc_label.py continuously ...')

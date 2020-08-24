@@ -6,7 +6,7 @@ from os.path import join
 
 sets=[('2007', 'train'), ('2007', 'val'), ('2007', 'test'), ('2007', 'trainval')]
 
-classes = ["girl1", "girl2"]
+classes = ["garbage","trash","human","ship","bottle"]
 
 
 def convert(size, box):
@@ -39,6 +39,7 @@ def convert_annotation(year, image_id):
         cls_id = classes.index(cls)
         xmlbox = obj.find('bndbox')
         b = (float(xmlbox.find('xmin').text), float(xmlbox.find('xmax').text), float(xmlbox.find('ymin').text), float(xmlbox.find('ymax').text))
+        
         bb = convert((w,h), b)
         out_file.write(str(cls_id) + " " + " ".join([str(a) for a in bb]) + '\n')
 
@@ -47,11 +48,21 @@ wd = getcwd()
 for year, image_set in sets:
     if not os.path.exists('VOCdevkit/VOC%s/labels/'%(year)):        
         os.makedirs('VOCdevkit/VOC%s/labels/'%(year))
-    image_ids = open('VOCdevkit/VOC%s/ImageSets/Main/%s.txt'%(year, image_set)).read().strip().split()
+    image_names = open('VOCdevkit/VOC%s/ImageSets/Main/%s.txt'%(year, image_set)).read().strip().split()
+    image_ids = list()
+    for image_name in image_names:        
+        if image_name.endswith('.jpg') or image_name.endswith('.png'):
+            image_ids.append(image_name[:-4])
+        elif image_name.endswith('.jpeg'):            
+            image_ids.append(image_name[:-5])
+        else:   
+            raise RuntimeError('- [x] Not correct file format: {image_name}')    
+
     list_file = open('%s_%s.txt'%(year, image_set), 'w')
     for image_id in image_ids:
-        list_file.write('%s/VOCdevkit/VOC%s/JPEGImages/%s.jpg\n'%(wd, year, image_id))
+        for image_name in image_names:
+            list_file.write('%s/VOCdevkit/VOC%s/JPEGImages/%s\n'%(wd, year, image_name))
         convert_annotation(year, image_id)
     list_file.close()
-
-print('DONE')
+    print(f'- [x] {year}_{image_set} : {len(image_names)}')
+print(f'- [DONE] Change xml_file(pascal VOC) to txt_file(YOLO) labels and create dataset list.')
