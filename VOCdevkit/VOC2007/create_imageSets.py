@@ -49,5 +49,6 @@ ftrainval.close()
 ftrain.close()
 fval.close()
 ftest.close()
+
 print(f'- [Done] Create dataset(txtfile) to {txtsavepath}')
 print(f'- [x] Please run voc_label.py continuously ...')
