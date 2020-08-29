@@ -6,7 +6,8 @@ from os.path import join
 
 sets=[('2007', 'train'), ('2007', 'val'), ('2007', 'test'), ('2007', 'trainval')]
 
-classes = ["garbage","trash","human","ship","bottle"]
+classes = ["garbage","trash","ship","human","bottle"]
+#classes = ["girl1","girl2"]
 
 
 def convert(size, box):
@@ -55,14 +56,16 @@ for year, image_set in sets:
             image_ids.append(image_name[:-4])
         elif image_name.endswith('.jpeg'):            
             image_ids.append(image_name[:-5])
-        else:   
-            raise RuntimeError('- [x] Not correct file format: {image_name}')    
+        else:
+            print(f'- [x] Not correct file format: {image_name}')
+            raise ('error')    
 
     list_file = open('%s_%s.txt'%(year, image_set), 'w')
-    for image_id in image_ids:
-        for image_name in image_names:
-            list_file.write('%s/VOCdevkit/VOC%s/JPEGImages/%s\n'%(wd, year, image_name))
-        convert_annotation(year, image_id)
+
+    for i in range(len(image_ids)):            
+        list_file.write('%s/VOCdevkit/VOC%s/JPEGImages/%s\n'%(wd, year, image_names[i]))
+        convert_annotation(year, image_ids[i])
     list_file.close()
     print(f'- [x] {year}_{image_set} : {len(image_names)}')
-print(f'- [DONE] Change xml_file(pascal VOC) to txt_file(YOLO) labels and create dataset list.')
+
+print(f'- [Done] we change the xml_file(pascal VOC) to txt_file(YOLO) labels and create dataset list.')
