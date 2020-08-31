@@ -42,6 +42,11 @@ def convert_annotation(year, image_id):
         b = (float(xmlbox.find('xmin').text), float(xmlbox.find('xmax').text), float(xmlbox.find('ymin').text), float(xmlbox.find('ymax').text))
         
         bb = convert((w,h), b)
+        if bb[0]>1 or bb[1]>1 or bb[2]>1 or bb[3]>1 :            
+            raise RuntimeError(f'{image_id} bbox out of range >1')
+
+        if bb[0]<0 or bb[1]<0 or bb[2]<0 or bb[3]<0 :            
+            raise RuntimeError(f'{image_id} bbox out of range <0')
         out_file.write(str(cls_id) + " " + " ".join([str(a) for a in bb]) + '\n')
 
 wd = getcwd()
