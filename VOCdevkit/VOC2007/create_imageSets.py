@@ -8,6 +8,8 @@ xmlfilepath = 'Annotations'
 txtsavepath = 'ImageSets/Main'
 jpegfilepath = 'JPEGImages'
 
+random.seed(10)
+
 total_xml = os.listdir(xmlfilepath)
 total_images = os.listdir(jpegfilepath)
 
