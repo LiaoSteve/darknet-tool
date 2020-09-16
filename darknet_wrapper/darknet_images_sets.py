@@ -18,7 +18,7 @@ def parser():
     parser.add_argument("--save_dir", type=str, default="./predict_image/day1/",
                         help="path to save detection images")
 
-    parser.add_argument("--weights", default="./backup/yolov4_final.weights",
+    parser.add_argument("--weights", default="./backup/yolov4_last.weights",
                         help="yolo weights path") 
 
     parser.add_argument("--config_file", default="./cfg/yolov4.cfg",
@@ -59,7 +59,8 @@ if __name__ == '__main__':
     darknet_width = darknet.network_width(network)
     darknet_height = darknet.network_height(network)
     darknet_image = darknet.make_image(darknet_width, darknet_height, 3)    
-    
+    info = dict()   
+        
     for year, set in sets:
         save_dir = args.save_dir + set +'/'
         os.makedirs(save_dir, exist_ok=1)
@@ -86,6 +87,7 @@ if __name__ == '__main__':
             frame = darknet.draw_boxes(detections, frame, class_colors, darknet_width)
             cv2.imwrite(save_dir + image.split('/')[-1], frame)
             print(f'- [x] save image {image} to {save_dir}')
-        #print(f'- [OK] Save {len(images)} images done')
+        info[set]= len(images)       
         del temps
         del images
+    print(info)
