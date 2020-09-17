@@ -9,17 +9,17 @@ import argparse
 
 def parser():
     parser = argparse.ArgumentParser(description="YOLO Object Detection")   
-    parser.add_argument("--input", default="0",
+    parser.add_argument("--input", default="trash.mp4",
                         help="webcam or video path")
-    parser.add_argument("--weights", default="yolov4.weights",
+    parser.add_argument("--weights", default="backup/yolov4_50000.weights",
                         help="yolo weights path") 
     parser.add_argument("--config_file", default="./cfg/yolov4.cfg",
                         help="path to config file")
-    parser.add_argument("--data_file", default="./cfg/coco.data",
+    parser.add_argument("--data_file", default="./data/obj.data",
                         help="path to data file")
     parser.add_argument("--thresh", type=float, default=.25,
                         help="remove detections with confidence below this value")
-    parser.add_argument("--out_filename", type=str, default="",
+    parser.add_argument("--out_filename", type=str, default="result.mp4",
                         help="inference video name. Not saved if empty")   
     parser.add_argument("--dont_show", default=False,
                         help="windown inference display. For headless systems")                        
@@ -50,7 +50,7 @@ def check_arguments_errors(args):
 
 def set_saved_video(input_video, output_video, size, fps):
     fourcc = cv2.VideoWriter_fourcc(*"MJPG")    
-    video = cv2.VideoWriter(output_video, fourcc, fps, (640,480))
+    video = cv2.VideoWriter(output_video, fourcc, fps, (size))
     return video
 
 
@@ -72,9 +72,8 @@ if __name__ == '__main__':
     cap = cv2.VideoCapture(input_path)
     cap.set(3, 640)
     cap.set(4, 480)
-    cap_width = cap.get(3)
-    cap_hight = cap.get(4)    
-    print('GG',cap_width)
+    cap_width = int(cap.get(3))
+    cap_hight = int(cap.get(4))    
     cap_fps = int(cap.get(5))
     video = set_saved_video(cap, args.out_filename, (cap_width, cap_hight), cap_fps)
 
