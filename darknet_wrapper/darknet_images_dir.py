@@ -1,6 +1,4 @@
-"""
-Author: LiaoSteve
-"""
+# Adapted by LiaoSteve
 from ctypes import *
 import random
 import os

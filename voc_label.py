@@ -6,8 +6,8 @@ from os.path import join
 
 sets=[('2007', 'train'), ('2007', 'val'), ('2007', 'test'), ('2007', 'trainval')]
 
-classes = ["garbage","trash","ship","human","bottle"]
-#classes = ["girl1","girl2"]
+classes = ["garbage","trash","bottle"]
+
 
 
 def convert(size, box):
