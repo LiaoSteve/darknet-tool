@@ -9,9 +9,9 @@ import argparse
 
 def parser():
     parser = argparse.ArgumentParser(description="YOLO Object Detection")   
-    parser.add_argument("--input", default="trash.mp4",
+    parser.add_argument("--input", default="../trash_video/trash9.MP4",
                         help="webcam or video path")
-    parser.add_argument("--weights", default="backup/yolov4_50000.weights",
+    parser.add_argument("--weights", default="backup/yolov4_4000.weights",
                         help="yolo weights path") 
     parser.add_argument("--config_file", default="./cfg/yolov4.cfg",
                         help="path to config file")
@@ -19,9 +19,9 @@ def parser():
                         help="path to data file")
     parser.add_argument("--thresh", type=float, default=.25,
                         help="remove detections with confidence below this value")
-    parser.add_argument("--out_filename", type=str, default="result.mp4",
+    parser.add_argument("--out_filename", type=str, default="result9_4000w.avi",
                         help="inference video name. Not saved if empty")   
-    parser.add_argument("--dont_show", default=False,
+    parser.add_argument("--dont_show", default=True,
                         help="windown inference display. For headless systems")                        
     parser.add_argument("--ext_output", default=False,
                         help="display bbox coordinates of detected objects")      
@@ -49,7 +49,7 @@ def check_arguments_errors(args):
 
 
 def set_saved_video(input_video, output_video, size, fps):
-    fourcc = cv2.VideoWriter_fourcc(*"MJPG")    
+    fourcc = cv2.VideoWriter_fourcc(*"XVID")    
     video = cv2.VideoWriter(output_video, fourcc, fps, (size))
     return video
 
@@ -88,8 +88,8 @@ if __name__ == '__main__':
         prev_time = time.time()
         detections = darknet.detect_image(network, class_names, darknet_image, thresh=args.thresh)
         fps = int(1/(time.time() - prev_time))
-        print(f'fps: {fps}')
-        darknet.print_detections(detections, args.ext_output)        
+        #print(f'fps: {fps}')
+        #darknet.print_detections(detections, args.ext_output)        
         
         image = darknet.draw_boxes(detections, frame, class_colors, darknet_width)
         
@@ -97,7 +97,7 @@ if __name__ == '__main__':
             video.write(image)
         if not args.dont_show:
             cv2.imshow('Inference', image)
-        if cv2.waitKey(5) == 27:
+        if cv2.waitKey(1) == 27:
             cap.release()
             video.release()
             cv2.destroyAllWindows() 
