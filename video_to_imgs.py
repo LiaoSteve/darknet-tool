@@ -5,7 +5,7 @@
 import os 
 import cv2
 
-input_path = '123.mp4'
+input_path = 'trash7.MP4'
 out_dir    = 'images'
 
 os.makedirs(out_dir, exist_ok=True)
@@ -14,7 +14,7 @@ fps = int(cap.get(5))
 
 count = 0
 num = 0
-out_fps = 2
+out_fps = 1
 
 while True:
     ret, img = cap.read()
@@ -23,6 +23,6 @@ while True:
         if count % fps < out_fps:
             num += 1
             cv2.imwrite(out_dir+'/out_'+str(num)+'.jpg', img)
-            print(num)
+            #print(num)
     else: break
-print('- [x] Done')
+print(f'- [x] Done: save {num} images')
