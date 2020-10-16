@@ -6,10 +6,10 @@ import os
 
 cap_input = '../trash_video/trash9.MP4'
 save = True
-out_resize = 0
+out_resize = 1
 out_width = 640
 out_height = 480
-out_fps = 100
+out_fps = 230
 out_name = 'GG.avi' 
 
 
@@ -38,7 +38,7 @@ if out_resize:
 else:
     print(f'[ Output ] size: ({cap_width},{cap_height}), fps: {out_fps} ')
     
-print(f' video time: x{cap_fps/out_fps}')
+print(f' video speed: x{out_fps/cap_fps}')
 if not cap.isOpened():
     raise RuntimeError(f'- [x] cap input: {cap_input} error happened.')
 in_count = 0
