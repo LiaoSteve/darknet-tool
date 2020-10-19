@@ -1,6 +1,8 @@
 # Created by LiaoSteve on 2020-09-27
 import os
 
+head_name = 'data7_DJI'
+
 xml_list = sorted(os.listdir('./Annotations'))
 image_list = sorted(os.listdir('./JPEGImages'))
 
@@ -20,12 +22,12 @@ for i in range(num):
         temp = '.jpeg'
     else:
         raise RuntimeError('images format is not .jpg .jpeg or png')    
-    os.rename(image_list[i], str(i)+temp)
+    os.rename(image_list[i], head_name + '_' + str(i)+temp)
 
 # rename xml list
 os.chdir('./../Annotations')
 
 for i in range(num):
-    os.rename(xml_list[i], str(i)+'.xml')
+    os.rename(xml_list[i], head_name + '_' + str(i)+'.xml')
 
 print('- [Done] convert images and xml names to numbers')
