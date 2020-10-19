@@ -7,11 +7,12 @@ import os
 import cv2
 import uuid 
 
-out_dir = 'out/'
+out_dir = 'out_negative/'
 os.makedirs(out_dir, exist_ok=True)
 show = False
 images = list()
-mypath = os.getcwd()
+#mypath =  os.getcwd() 
+mypath ='./non-garbage-queried-images/'
 for root, dirs, files in os.walk(mypath):    
     #print("root: ", root)
     #print("dirs", dirs)
