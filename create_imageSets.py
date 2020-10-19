@@ -22,13 +22,13 @@ if not os.path.exists(xmlfilepath):
 if not os.path.exists(jpegfilepath):
     raise RuntimeError("- [x] image path is not exist.")
 if not os.path.exists(txtpath):
-    raise RuntimeError("- [x] txt path is not not exist.")
+    raise RuntimeError("- [x] txt path is not exist.")
 
 total_xml = os.listdir(xmlfilepath)
 total_images = os.listdir(jpegfilepath)
 total_txt = os.listdir(txtpath)
 
-print(f'----- \n - [INFO] train:trainval = {train_percent}:{trainval_percent}')
+print(f'----- \n- [INFO] train:trainval = {train_percent}:{trainval_percent}')
 print(f'- [x] total_xml: {len(total_xml)}')
 print(f'- [x] total_images: {len(total_images)}')
 print(f'- [x] total_txt (note that classes.txt could exist, check this file!): {len(total_txt)}')
