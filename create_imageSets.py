@@ -1,6 +1,6 @@
 '''
-Adapted by LiaoSteve on 2020/10/18
-change 3 parameters:
+*  Adapted by LiaoSteve on 2020/10/18
+*  change 3 parameters:
         random.seed()
         trainval_percent 
         train_percent 
@@ -13,9 +13,10 @@ random.seed(10)
 trainval_percent = 0.2
 train_percent = 0.8
 
-xmlfilepath = './VOCdevkit/VOC2007/Annotations/'
-txtpath = './VOCdevkit/VOC2007/labels/'
-jpegfilepath = './VOCdevkit/VOC2007/JPEGImages/'
+root = os.getcwd()
+xmlfilepath = 'VOCdevkit/VOC2007/Annotations/'
+txtpath = 'VOCdevkit/VOC2007/labels/'
+jpegfilepath = 'VOCdevkit/VOC2007/JPEGImages/'
 
 if not os.path.exists(xmlfilepath):
     raise RuntimeError("- [x] xml path is not exist.")
@@ -28,7 +29,7 @@ total_xml = os.listdir(xmlfilepath)
 total_images = os.listdir(jpegfilepath)
 total_txt = os.listdir(txtpath)
 
-print(f'----- \n- [INFO] train:trainval = {train_percent}:{trainval_percent}')
+print(f'------------------------ \n- [INFO] train:trainval = {train_percent}:{trainval_percent}')
 print(f'- [x] total_xml: {len(total_xml)}')
 print(f'- [x] total_images: {len(total_images)}')
 print(f'- [x] total_txt (note that classes.txt could exist, check this file!): {len(total_txt)}')
@@ -52,7 +53,7 @@ val_num = 0
 test_num = 0
 
 for i in list:
-    name = total_images[i] + '\n'
+    name = root + '/' + jpegfilepath + total_images[i] + '\n'
     if i in trainval:
         ftrainval.write(name)
         if i in train:
