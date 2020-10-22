@@ -15,7 +15,7 @@ for image_name in image_names:
     else:            
         raise RuntimeError(f'- [x] Not the correct image format: {image_name}, delete this image and xml please.')    
 
-for image_name in image_names:
+for image_name in name_list:
     file = open('./labels/' + image_name + '.txt', 'w')
     file.write('')
     file.close()
