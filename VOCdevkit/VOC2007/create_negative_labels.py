@@ -16,8 +16,7 @@ for image_name in image_names:
         raise RuntimeError(f'- [x] Not the correct image format: {image_name}, delete this image and xml please.')    
 
 for image_name in name_list:
-    file = open('./labels/' + image_name + '.txt', 'w')
-    file.write('')
+    file = open('./labels/' + image_name + '.txt', 'w')    
     file.close()
 
 image_names = os.listdir('./JPEGImages')
