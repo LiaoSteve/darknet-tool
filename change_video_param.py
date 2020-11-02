@@ -4,13 +4,13 @@
 import cv2
 import os
 
-cap_input = '../trash_video/trash9.MP4'
+cap_input = 'result_last.avi'
 save = True
-out_resize = 1
+out_resize = 0
 out_width = 640
 out_height = 480
-out_fps = 230
-out_name = 'GG.avi' 
+fast_factor = 3
+out_name = 'fast_result_last_x'+str(fast_factor)+'.avi' 
 
 
 if not os.path.exists(cap_input):
@@ -20,6 +20,8 @@ cap = cv2.VideoCapture(cap_input)
 cap_width = int(cap.get(3))
 cap_height = int(cap.get(4))
 cap_fps = int(cap.get(5))
+out_fps = int(cap_fps * fast_factor)
+#out_fps = 23
 
 if out_resize:
     out = cv2.VideoWriter(out_name,
@@ -54,6 +56,5 @@ while 1:
         out.write(frame)            
         
 print(f'input_images: {in_count}')
-print(f'output_images: {in_count * cap_fps/out_fps}')
 out.release()
 print('Done')
