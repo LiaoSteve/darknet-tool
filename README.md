@@ -1,2 +1,2 @@
-# pascal-VOC
-A tool for training darknet, created by LiaoSteve.
+# darknet-study-tools
+Tools for darknet, created by Yu-Hsien Liao (LiaoSteve)
